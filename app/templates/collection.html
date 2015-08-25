@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-success" ng-click="collection.refreshLibrary()"
+                            style="white-space: normal" ng-disabled="collection.interval">Refresh Library
+                    </button>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-success" ng-click="collection.clearSelection()"
+                            style="white-space: normal">Clear selection
+                    </button>
+                </div>
+            </div>
+            <br/>
+
+            <div class="row row-space">
+                <div class="col-md-12">
+                    <ui-select multiple ng-model="collection.selectedCategories" theme="bootstrap"
+                               on-select="collection.refreshFilter()" on-remove="collection.refreshFilter()">
+                        <ui-select-match placeholder="Select categories...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="category in collection.categories | filter: $select.search | orderBy">
+                            {{category}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="row row-space">
+                <div class="col-md-12">
+                    <ui-select multiple ng-model="collection.selectedGenres" theme="bootstrap"
+                               on-select="collection.refreshFilter()" on-remove="collection.refreshFilter()">
+                        <ui-select-match placeholder="Select genres...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="genre in collection.genres | filter: $select.search | orderBy">
+                            {{genre}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <div class="row row-space">
+                <div class="col-md-12">
+                    <ui-select multiple ng-model="collection.selectedLanguages" theme="bootstrap"
+                               on-select="collection.refreshFilter()" on-remove="collection.refreshFilter()">
+                        <ui-select-match placeholder="Select languages...">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="language in collection.languages | filter: $select.search | orderBy">
+                            {{language}}
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-12">
+                    <progressbar ng-show="collection.interval" max="collection.processStatus.total" value="collection.processStatus.current">
+                        <span style="color:white; white-space:nowrap;">{{collection.processStatus.current}} / {{collection.processStatus.total}}</span>
+                    </progressbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" ng-repeat="game in collection.filteredGames">
+                    <div class="pdf-thumb-box img-rounded" style="width: 100%;margin-bottom: 15px">
+                        <a>
+                            <div class="pdf-thumb-box-overlay">
+                                <h3 class="text-center">{{game.name}}</h3>
+                            </div>
+                            <img class="img-rounded" style="width: 100%;display: block"
+                                 ng-src="http://media.steampowered.com/steamcommunity/public/images/apps/{{game._id}}/{{game.image_logo_url}}.jpg"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
