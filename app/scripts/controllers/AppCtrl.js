@@ -23,6 +23,8 @@
       UserService.getUserInfo().success(function (data) {
         ctrl.user = data;
       });
+
+      $location.url($location.path());
     }
   }
 })();
